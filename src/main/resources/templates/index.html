@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--asi se agrega thymeleaf a un archivo html-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Inicio</h1>
+        <!-- accedemos a las variable mapeadas en el controlador de inicio -->        
+        <p th:text="${mensaje}"></p>
+        <p th:text="${saludo}"></p>        
+<!-- uso el div con thymeleaf para saber si el arreglo esta vacio, 
+en caso de que no este vacio nos va mostar los datos de las personas que se encuentren listadas en el arreglo
+de personas que se agregaron directamente en el controlador-->
+        <div th:if="${personas != null and !personas.empty}">        
+        <table border ="1">
+            <tr>
+                <th>Nombre:</th>
+                <th>Apellido:</th>
+                <th>Email:</th>
+                <th>Telefono:</th>                
+            </tr>
+<!-- accedemos al ciclo con thymeleaf para recorrer el arreglo de las personas agregadas anteriormente en el controlador  -->
+            <tr th:each="persona: ${personas}">
+                <td th:text="${persona.nombre}">Nombre</td>
+                <td th:text="${persona.apellido}">Apellido</td>            
+                <td th:text="${persona.email}">Email</td>
+                <td th:text="${persona.telefono}">Telefono</td>
+            </tr>             
+        </table>
+    </div>
+<!-- se cierra el div de modo tal que envuelva toda la tabla -->
+<div th:if="${personas == null or personas.empty}">
+la lista de personas es vacia
+</div>
+</body>
+</html>
